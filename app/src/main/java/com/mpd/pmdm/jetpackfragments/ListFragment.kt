@@ -6,32 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.ListFragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.mpd.pmdm.jetpackfragments.databinding.FragmentListBinding
 
 class ListFragment : Fragment() {
 
     var _binding: FragmentListBinding? = null
     val binding get() = _binding!!
-
-    //Declaramos una variable para almacenar la implementación de la interfaz
-    //StarSignListener declarada en MainActivity.kt
-    private lateinit var starSignListener: StarSignListener
-
-    //Con este onAttach comprobamos que la Actividad que contenga este fragmento
-    //implemente el starSignListener, o de lo contrario se lanzará una excepción.
-    //Así aseguramos poder notificar a la Actividad cuando se haga click en un signo
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        //Opcion 1
-//        if(context is StarSignListener){
-//            starSignListener = context
-//        } else{
-//          throw RuntimeException("Must implement StarSignListener")
-//        }
-        //Opcion 2.
-        if (activity is StarSignListener) starSignListener = activity as StarSignListener
-        else throw RuntimeException("Must implement StarSignListener")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,11 +44,26 @@ class ListFragment : Fragment() {
             binding.capricorn,
         )
 
-        //A cada TextView signo le asociamos al evento onClick una llamada al Listener starSignListener
+        //Recordad que "it" aquí representa el único parámetro de la lambda: https://kotlinlang.org/docs/lambdas.html#it-implicit-name-of-a-single-parameter
         starSigns.forEach {
+            //Creamos un Bundle() para el paso de datos, y le añadimos el id del signo pulsado
+            val fragmentBundle = Bundle()
+            fragmentBundle.putInt(STAR_SIGN_ID, it.id)
+
+            //Al hacer click en un signo (it)
             it.setOnClickListener {
-                starSignListener.onSelected(it.id)
+                //Usamos la función navigate de findNavController. Tiene varias versiones sobrecargadas
+                //Esta recibe el id de la acción del gráfico de navegación xml, y, opcionalmente, el Bundle con los datos a pasar
+                //https://developer.android.com/guide/navigation/navigation-navigate?hl=es-419#id
+                findNavController().navigate(R.id.action_listFragment_to_detailFragment, fragmentBundle)
             }
+
+            //También valdría la opción de pasar directamente un Listener creado al vuelo (usando paréntesis en lugar de llaves)
+            //sacado de la misma guía del enlace anterior
+//            it.setOnClickListener(
+//                Navigation.createNavigateOnClickListener(R.id.action_listFragment_to_detailFragment, fragmentBundle)
+//            )
+
         }
 
     }
