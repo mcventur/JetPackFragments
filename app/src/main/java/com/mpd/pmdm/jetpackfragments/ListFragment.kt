@@ -52,17 +52,9 @@ class ListFragment : Fragment() {
 
             //Al hacer click en un signo (it)
             it.setOnClickListener {
-                //Usamos la función navigate de findNavController. Tiene varias versiones sobrecargadas
-                //Esta recibe el id de la acción del gráfico de navegación xml, y, opcionalmente, el Bundle con los datos a pasar
-                //https://developer.android.com/guide/navigation/navigation-navigate?hl=es-419#id
-                findNavController().navigate(R.id.action_listFragment_to_detailFragment, fragmentBundle)
+                val action  = ListFragmentDirections.actionListFragmentToDetailFragment(starSignId = it.id)
+                findNavController().navigate(action)
             }
-
-            //También valdría la opción de pasar directamente un Listener creado al vuelo (usando paréntesis en lugar de llaves)
-            //sacado de la misma guía del enlace anterior
-//            it.setOnClickListener(
-//                Navigation.createNavigateOnClickListener(R.id.action_listFragment_to_detailFragment, fragmentBundle)
-//            )
 
         }
 

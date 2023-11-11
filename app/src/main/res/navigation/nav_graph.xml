@@ -18,5 +18,10 @@
         android:id="@+id/starSign"
         android:name="com.mpd.pmdm.jetpackfragments.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="starSignId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.mpd.pmdm.jetpackfragments.databinding.FragmentDetailBinding
 
 /**
@@ -16,6 +17,8 @@ import com.mpd.pmdm.jetpackfragments.databinding.FragmentDetailBinding
 class DetailFragment : Fragment() {
     var _binding: FragmentDetailBinding? = null
     val binding get() = _binding!!
+
+    val args: DetailFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -34,8 +37,7 @@ class DetailFragment : Fragment() {
     Se tiene que hacer en onViewCreated porque en setStarSignData se accede a las vistas
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val starSignId = arguments?.getInt(STAR_SIGN_ID, 0) ?: 0
-        setStarSignData(starSignId)
+        setStarSignData(args.starSignId)
     }
 
     /**
