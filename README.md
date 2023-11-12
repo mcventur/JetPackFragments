@@ -56,6 +56,8 @@ que sigue recogiendo los datos como en el ejemplo de Dynamic Fragments:
 val starSignId = arguments?.getInt(STAR_SIGN_ID, 0) ?: 0
 ```
 
+Tenéis esta versión del código disponible en [este commit](https://github.com/mcventur/JetPackFragments/tree/860dc372ad994e7f35b9caad14209d799d1b4e24) del repositorio.
+
 # Uso de SafeArgs de Gradle para navegar con seguridad de tipos
 Para pasar datos en nuestra navegación sin usar SafeArgs creamos un objeto Bundle 
 en el origen ListFragment con ```fragmentBundle.putInt(STAR_SIGN_ID, it.id)``` y se recoge en el fragmento de destino DetailFragment con 
